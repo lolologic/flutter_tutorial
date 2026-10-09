@@ -76,13 +76,13 @@ class _TrackingElemen extends StatefulWidget {
     required this.color,
     required this.iconData,
     required this.unit,
-    required this.max
+    required this.max,
   });
 
   final Color color;
   final IconData iconData;
   final String unit;
-  final int max;
+  final double max;
 
   @override
   State<_TrackingElemen> createState() => __TrackingElemenState();
@@ -90,10 +90,12 @@ class _TrackingElemen extends StatefulWidget {
 
 class __TrackingElemenState extends State<_TrackingElemen> {
   int _counter = 0;
+  double _progress = 0;
 
   void _incrementCounter() {
     setState(() {
       _counter += 200;
+      _progress = _counter / widget.max;
     });
   }
 
@@ -114,14 +116,14 @@ class __TrackingElemenState extends State<_TrackingElemen> {
               children: <Widget>[
                 Icon(widget.iconData, color: Colors.white70, size: 50),
                 Text(
-                  '${_counter.toString()} / ${widget.max} ${widget.unit}',
+                  '${_counter.toString()} / ${widget.max.toInt()} ${widget.unit}',
                   style: const TextStyle(color: Colors.white70, fontSize: 32),
                 ),
               ],
             ),
           ),
           LinearProgressIndicator(
-            value: 0.3,
+            value: _progress,
             color: widget.color,
             backgroundColor: const Color.fromARGB(52, 255, 255, 255),
             minHeight: 12.0,
